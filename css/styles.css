@@ -1,0 +1,15 @@
+section
+{
+  min-height: 50vh;
+  background-color: aqua;
+}
+
+/*
+*  Miscellaneous
+*/
+
+body
+{
+  margin: 0;
+  padding: 0;
+}
