@@ -4,15 +4,22 @@
 
         this.apiKey = options.key;
         this.endpoint = options.endpoint;
-        this.coordinates = {};
+        var coordinates = {};
+        this.getLocation =  function() {
+            return coordinates;
+        };
+
+        this.setLocation = function(lat, long) {
+            coordinates.latitude = lat;
+            coordinates.longitude = long;
+        };
     }
 
     Weather.prototype.GetLocation = function( callback ) {
         if (navigator.geolocation)
         {
             navigator.geolocation.getCurrentPosition( function(position) {
-                Weather.coordinates.latitude = position.coords.latitude;
-                Weather.coordinates.longitude = position.coords.longitude;
+                Weather.setLocation( position.coords.latitude, position.coords.longitude );
             });
         }
     };
