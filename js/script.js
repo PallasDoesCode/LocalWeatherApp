@@ -11,8 +11,8 @@
         if (navigator.geolocation)
         {
             navigator.geolocation.getCurrentPosition( function(position) {
-                this.coordinates.latitude = position.coords.latitude;
-                this.coordinates.longitude = position.coords.longitude;
+                Weather.coordinates.latitude = position.coords.latitude;
+                Weather.coordinates.longitude = position.coords.longitude;
             });
         }
     };
@@ -23,7 +23,7 @@
 
         //var url = this.endpoint + this.apiKey + "/conditions/q/" + location.latitude + "," + location.longitude + ".json";
 
-        var url = this.endpoint + "weather?lat=" + this.coordinates.latitude + "&lon=" + this.coordinates.longitude;
+        var url = Weather.endpoint + "weather?lat=" + Weather.coordinates.latitude + "&lon=" + Weather.coordinates.longitude;
 
         return this.getJSONP( url );
     };
@@ -34,7 +34,7 @@
 
         //var url = this.endpoint + this.apiKey + "/forecast10day/q/" + location.latitude + "," + location.longitude + ".json";
 
-        var url = this.endpoint + "forecast/daily?lat=" + this.coordinates.latitude + "&lon=" + this.coordinates.longitude + "&cnt=7";
+        var url = Weather.endpoint + "forecast/daily?lat=" + Weather.coordinates.latitude + "&lon=" + Weather.coordinates.longitude + "&cnt=7";
 
         return this.getJSONP( url );
     };
