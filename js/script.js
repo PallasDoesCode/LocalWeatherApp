@@ -50,11 +50,10 @@
             request.onreadystatechange = function() {
                 if ( request.readyState === 4) { // 4 is done
                     if (request.status === 200) { // 200 is OK
-                        var response = JSON.parse( request.responseText );
-                        resolve( response );
+                        resolve ( JSON.parse( request.response ) );
                     }
                     else {
-                        reject( new Error( "Failed to fetch data from the API" ) );
+                        reject( new Error( request.response ) );
                     }
                 }
             };
