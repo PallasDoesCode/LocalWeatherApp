@@ -13,9 +13,11 @@
             coordinates.latitude = lat;
             coordinates.longitude = long;
         };
+
+        this.GetCoordinates();
     }
 
-    Weather.prototype.GetLocation = function( callback ) {
+    Weather.prototype.GetCoordinates = function( callback ) {
         if (navigator.geolocation)
         {
             navigator.geolocation.getCurrentPosition( function(position) {
@@ -26,22 +28,24 @@
 
     Weather.prototype.GetCurrentConditions = function() {
 
-        this.GetLocation();
+        var latitude = Weather.getLocation().latitude;
+        var longitude = Weather.getLocation().longitude;
 
         //var url = this.endpoint + this.apiKey + "/conditions/q/" + location.latitude + "," + location.longitude + ".json";
 
-        var url = Weather.endpoint + "weather?lat=" + Weather.coordinates.latitude + "&lon=" + Weather.coordinates.longitude;
+        var url = Weather.endpoint + "weather?lat=" + latitude + "&lon=" + longitude;
 
         return this.getJSONP( url );
     };
 
     Weather.prototype.GetExtendedForecast = function() {
 
-        this.GetLocation();
+        var latitude = Weather.getLocation().latitude;
+        var longitude = Weather.getLocation().longitude;
 
         //var url = this.endpoint + this.apiKey + "/forecast10day/q/" + location.latitude + "," + location.longitude + ".json";
 
-        var url = Weather.endpoint + "forecast/daily?lat=" + Weather.coordinates.latitude + "&lon=" + Weather.coordinates.longitude + "&cnt=7";
+        var url = Weather.endpoint + "forecast/daily?lat=" + latitude + "&lon=" + longitude + "&cnt=7";
 
         return this.getJSONP( url );
     };
