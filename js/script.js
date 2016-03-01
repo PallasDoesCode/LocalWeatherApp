@@ -4,48 +4,39 @@
 
         this.apiKey = options.key;
         this.endpoint = options.endpoint;
-        var coordinates = {};
-        this.getLocation =  function() {
-            return coordinates;
-        };
-
-        this.setLocation = function(lat, long) {
-            coordinates.latitude = lat;
-            coordinates.longitude = long;
-        };
-
-        this.GetCoordinates();
+        this.coordinates = this.GetCoordinates();
     }
 
     Weather.prototype.GetCoordinates = function( callback ) {
-        if (navigator.geolocation)
-        {
-            navigator.geolocation.getCurrentPosition( function(position) {
-                Weather.setLocation( position.coords.latitude, position.coords.longitude );
-            });
-        }
+        return new Promise( function( resolve, reject ) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition( resolve, reject );
+            }
+            else {
+                reject( {
+                    error: "Your browser does not support geolocation."
+                } );
+            }
+        });
     };
 
     Weather.prototype.GetCurrentConditions = function() {
 
-        var latitude = Weather.getLocation().latitude;
-        var longitude = Weather.getLocation().longitude;
-
         //var url = this.endpoint + this.apiKey + "/conditions/q/" + location.latitude + "," + location.longitude + ".json";
+        // returns a Promise
+        return this.coordinates
+            .then( function( data ) {
+                var url = Weather.endpoint + "weather?lat=" + this.coordinates.latitude + "&lon=" + this.coordinates.longitude;
 
-        var url = Weather.endpoint + "weather?lat=" + latitude + "&lon=" + longitude;
-
-        return this.getJSONP( url );
+                return this.getJSONP( url );
+            }.bind( this ) );
     };
 
     Weather.prototype.GetExtendedForecast = function() {
 
-        var latitude = Weather.getLocation().latitude;
-        var longitude = Weather.getLocation().longitude;
-
         //var url = this.endpoint + this.apiKey + "/forecast10day/q/" + location.latitude + "," + location.longitude + ".json";
 
-        var url = Weather.endpoint + "forecast/daily?lat=" + latitude + "&lon=" + longitude + "&cnt=7";
+        var url = Weather.endpoint + "forecast/daily?lat=" + this.coordinates.latitude + "&lon=" + this.coordinates.longitude + "&cnt=7";
 
         return this.getJSONP( url );
     };
@@ -122,10 +113,13 @@
         //endpoint: "https://api.wunderground.com/api/"
     });
 
-    var currentConditions = document.querySelector( "#today" );
-    currentConditions.innerHTML = weather.GetCurrentConditions();
+    weather.GetCurrentConditions().then( function( data ) {
 
-    weather.GetExtendedForecast();
+        //var currentConditions = document.querySelector( "#today" );
+        //currentConditions.innerHTML =
+        console.log(data);
+    })
 
+    //weather.GetExtendedForecast();
 
 } )( );
