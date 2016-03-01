@@ -2,7 +2,7 @@
 
     function Weather( options ) {
 
-        this.apiKey = options.key;
+        this.apiKey = options.apiKey;
         this.endpoint = options.endpoint;
         this.coordinates = this.GetCoordinates();
     }
@@ -22,11 +22,10 @@
 
     Weather.prototype.GetCurrentConditions = function() {
 
-        //var url = this.endpoint + this.apiKey + "/conditions/q/" + location.latitude + "," + location.longitude + ".json";
         // returns a Promise
         return this.coordinates
             .then( function( data ) {
-                var url = Weather.endpoint + "weather?lat=" + this.coordinates.latitude + "&lon=" + this.coordinates.longitude;
+                var url = this.endpoint + "weather?lat=" + data.coords.latitude + "&lon=" + data.coords.longitude + "&APPID=" + this.apiKey;
 
                 return this.getJSONP( url );
             }.bind( this ) );
@@ -34,11 +33,14 @@
 
     Weather.prototype.GetExtendedForecast = function() {
 
-        //var url = this.endpoint + this.apiKey + "/forecast10day/q/" + location.latitude + "," + location.longitude + ".json";
+        // returns a Promise
+        return this.coordinates
+            .then( function( data ) {
+                var url = this.endpoint + "forecast/daily?lat=" + data.coords.latitude + "&lon=" + data.coords.longitude + "&cnt=7"
+                    + "&APPID=" + this.apiKey;
 
-        var url = Weather.endpoint + "forecast/daily?lat=" + this.coordinates.latitude + "&lon=" + this.coordinates.longitude + "&cnt=7";
-
-        return this.getJSONP( url );
+                return this.getJSONP( url );
+            }.bind( this ) );
     };
 
     Weather.prototype.getJSON = function( url ) {
@@ -108,7 +110,7 @@
 
 	var weather = new Weather({
         apiKey: "0db2018041f1b5ff8a15867b51a366e8",
-        endpoint: "https://api.openweathermap.org/data/2.5/"
+        endpoint: "http://api.openweathermap.org/data/2.5/"
         //apiKey: "32a975b54b3fd4d4",
         //endpoint: "https://api.wunderground.com/api/"
     });
