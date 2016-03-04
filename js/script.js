@@ -105,10 +105,9 @@
         // Set the current description
         var currentConditionsDesc = document.querySelector( "#currentConditionsDesc" );
         currentConditionsDesc.innerHTML = data.weather[0].description;
-        console.log(data);
 
         // Display wind information - Speed + Direction ( in degrees)
-        var windData = document.querySelector("#currentWindData");
+        var windData = document.querySelector( "#currentWindData" );
         var windDirection = "";
 
         if (348.75 <= data.wind.deg && data.wind.deg <= 360) {
@@ -166,11 +165,11 @@
         windData.innerHTML = data.wind.speed + " " + windDirection;
 
         // Display humidity information (in percent)
-        var currentHumidity = document.querySelector("#currentHumidity");
+        var currentHumidity = document.querySelector( "#currentHumidity" );
         currentHumidity.innerHTML = data.main.humidity + "%";
 
         // Display the pressure (in hPa)
-        var currentPressure = document.querySelector("#currentPressure");
+        var currentPressure = document.querySelector( "#currentPressure" );
         currentPressure.innerHTML = data.main.pressure + " hPa";
     })
 
