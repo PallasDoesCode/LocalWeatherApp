@@ -163,15 +163,15 @@
             windDirection = "NNW";
         }
 
-        windData.innerHTML = data.wind.speed + windDirection;
+        windData.innerHTML = data.wind.speed + " " + windDirection;
 
         // Display humidity information (in percent)
         var currentHumidity = document.querySelector("#currentHumidity");
-        currentHumidity.innerHTML = data.main.humidity;
+        currentHumidity.innerHTML = data.main.humidity + "%";
 
         // Display the pressure (in hPa)
         var currentPressure = document.querySelector("#currentPressure");
-        currentPressure = data.main.pressure;
+        currentPressure.innerHTML = data.main.pressure + " hPa";
     })
 
     //weather.GetExtendedForecast();
