@@ -24,10 +24,39 @@
             <div class="container">
                 <div class="row">
                     <div id="today" class="col-sm-4">
-
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-3"></div>
+                        </div>
+                        <div class="row">
+                            <div id="currentConditionsDesc" class="col-sm-12"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">Wind</div>
+                            <div id="currentWindData" class="col-sm-6"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">Humidity</div>
+                            <div id="currentHumidity" class="col-sm-6"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">Pressure</div>
+                            <div class="col-sm-6"></div>
+                        </div>
                     </div> <!-- .col-sm-4 -->
                     <div id="sevenDayForecast" class="col-sm-8">
-                        &nbsp;
+                        <table>
+                            <tr id="sevenDayTableHeader">
+                                <th>Day</th>
+                                <th>Temp</th>
+                                <th>Description</th>
+                                <th>Precip</th>
+                                <th>Wind</th>
+                                <th>Humidity</th>
+                            </tr>
+                        </table>
                         <img id="icon" />
                         <p id ="title">Blah</p>
                     </div> <!-- .col-sm-8 -->
