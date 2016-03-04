@@ -93,21 +93,6 @@
      *  code so that they can pull the data from the library
      ********************************************************/
 
-    function UpdateCurrentConditions( data ) {
-
-        // Load the current weather conditions
-
-    };
-
-    Weather.prototype.UpdateExtendedForecast = function() {
-
-        // Load the 7 day forecase into the table
-
-        // Var today = data.forecast.txt_forecast.forecastday[0];
-
-        // $("#title").html(today.title);
-    };
-
 	var weather = new Weather({
         apiKey: "0db2018041f1b5ff8a15867b51a366e8",
         endpoint: "http://api.openweathermap.org/data/2.5/"
@@ -117,8 +102,8 @@
 
     weather.GetCurrentConditions().then( function( data ) {
 
-        //var currentConditions = document.querySelector( "#today" );
-        //currentConditions.innerHTML =
+        var currentConditions = document.querySelector( "#today" );
+        currentConditions.innerHTML = data.weather[0].description;
         console.log(data);
     })
 
